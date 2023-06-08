@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "cached-notion"
+version = "0.1.0"
+description = ""
+authors = ["tim-watcha <tim@watcha.com>"]
+readme = "README.md"
+packages = [{include = "cached_notion"}]
+
+[tool.poetry.dependencies]
+python = "^3.9.1"
+notion-client = "^2.0.0"
+sqlitedict = "^2.1.0"
+coloredlogs = "^15.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

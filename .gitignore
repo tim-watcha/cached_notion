@@ -1,0 +1,18 @@
+# .gitignore
+
+# Ignore Python build artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*~
+
+# Ignore Poetry artifacts
+/poetry.lock
+
+# Ignore IDE artifacts
+.idea/
+.vscode/
+*.swp
+*.swo
+
