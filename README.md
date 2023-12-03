@@ -9,6 +9,8 @@
 Effortlessly replace `NotionClient` with `CachedClient` for an optimized experience:
 ```python
 from cached_notion.cached_client import CachedClient
+from cached_notion.utils import normalize_url, get_id_with_object_type
+import os
 
 # Initialize CachedClient with your Notion token and desired cache settings
 client = CachedClient(auth=os.environ["NOTION_TOKEN"], cache_delta=24)
@@ -25,7 +27,11 @@ block = client.blocks.retrieve(nid)
 ## Utility Functions 🛠️
 Maximize your productivity with these handy functions:
 ```python
+from cached_notion.cached_client import CachedClient
 from cached_notion.utils import normalize_url, get_id_with_object_type, retrieve_object
+import os
+
+client = CachedClient(auth=os.environ["NOTION_TOKEN"], cache_delta=24)
 
 # Normalize the URL and extract the Notion ID and object type
 url = "https://www.notion.so/xxx/xxx"
@@ -40,7 +46,10 @@ print(obj)
 ```
 
 ```python
+from cached_notion.cached_client import CachedClient
 from cached_notion.utils import normalize_url, get_id_with_object_type, retrieve_all_content
+import os
+client = CachedClient(auth=os.environ["NOTION_TOKEN"], cache_delta=24)
 
 # Normalize the URL and extract the Notion ID and object type
 url = "https://www.notion.so/xxx/xxx"
