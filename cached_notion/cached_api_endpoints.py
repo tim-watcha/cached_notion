@@ -23,8 +23,9 @@ def cached_endpoint(retrieve_func):
         self.parent.logger.pretty(id=id, cached=cached, kwargs=kwargs)
         self.parent.logger.pretty(cached=self.parent.cache.is_recently_cached(id, self.parent.cache_delta))
         self.parent.logger.pretty(outdated=self.parent.cache.is_outdated(id, cached))
-        if self.parent.cache.is_recently_cached(id, self.parent.cache_delta) \
-                or not self.parent.cache.is_outdated(id, cached):
+        self.parent.logger.pretty(self.parent.cache.get(id))
+        if (self.parent.cache.is_recently_cached(id, self.parent.cache_delta) \
+                or not self.parent.cache.is_outdated(id, cached)) and cached is not None:
             self.parent.logger.info(f"Cache hit! Retrieving {id}")
             return self.parent.cache.get(id)
 
@@ -78,7 +79,12 @@ class CachedDatabasesEndpoint(DatabasesEndpoint, CachedEndpoint):
             self.parent.logger.info(f"Cache hit! Querying {database_id}")
             return entries
 
-        resp = collect_paginated_api(self.query, database_id=database_id, **kwargs)
+        try:
+            resp = collect_paginated_api(self.query, database_id=database_id, **kwargs)
+        except Exception as e:
+            self.parent.logger.error(e)
+            self.parent.logger.error(database_id, kwargs)
+            return []
         self.parent.logger.pretty(resp)
 
         # If the database is not cached, don't cache the entries
@@ -113,7 +119,12 @@ class CachedBlocksChildrenEndpoint(BlocksChildrenEndpoint, CachedEndpoint):
             self.parent.logger.info(f"Cache hit! Listing {block_id}")
             return children
 
-        resp = collect_paginated_api(self.list, block_id=block_id, **kwargs)
+        try:
+            resp = collect_paginated_api(self.list, block_id=block_id, **kwargs)
+        except Exception as e:
+            self.parent.logger.error(e)
+            self.parent.logger.error(block_id, kwargs)
+            return []
         self.parent.logger.pretty(resp)
 
         # If the parent block is not cached, don't cache the children
