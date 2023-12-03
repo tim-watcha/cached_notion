@@ -1,45 +1,38 @@
 # CachedNotion 🔧
-Please note that this project is still under construction 🚧, but basic functions are operational and can be used. 
+**CachedNotion** offers an enhanced, caching-enabled interface for interacting with Notion APIs. While it's a work in progress 🚧, its core functionality is fully operational, ensuring efficient and smooth integration.
 
-# Basic Usage 🌟
-With our `CachedClient` class, you can simply replace the usual `NotionClient` class for a smoother experience. Here's how to do it:
+## What's New 🌟
+- **Critical Caching Issue Resolved:** We've tackled a significant caching problem to ensure more reliable and faster access to your Notion data.
+- Stay tuned for ongoing updates and improvements! 💼
+
+## Basic Usage 📖
+Effortlessly replace `NotionClient` with `CachedClient` for an optimized experience:
 ```python
 from cached_notion.cached_client import CachedClient
 
-# Instantiate the CachedClient
+# Initialize CachedClient
 client = CachedClient(auth=os.environ["NOTION_TOKEN"], cache_delta=24)
 
-# Retrieve a page
+# Use CachedClient to interact with Notion
 page = client.pages.retrieve("https://www.notion.so/xxx/xxx")
-
-# Retrieve a database
 database = client.databases.retrieve("https://www.notion.so/xxx/xxx")
-
-# Retrieve a block
 block = client.blocks.retrieve("https://www.notion.so/xxx/xxx")
 ```
 
 ## Utility Functions 🛠️
-
+Maximize your productivity with these handy functions:
 ```python
-from cached_notion.utils
+from cached_notion.utils import retrieve_all_content
 
-# These utility functions recursively retrieve all content from a page or database.
-page = retrieve_all_content(client, notion_id, "page")  # Or "database", "block", "unknown" (default)
+# Retrieve and print all content from a page or database
+page = retrieve_all_content(client, notion_id, "page")  # Options: "page", "database", "block", "unknown"
 print(page)
 print(page.get("children", []))
 
 database = retrieve_all_content(client, notion_id, "database")
 print(database)
-print(database.get("entries", []))  # Please note, this is not an official structure
+print(database.get("entries", []))  # Note: This is not an official structure
 ```
 
-# Caching Strategy 💡
-
-## Cache Delta
-
-- When `cache_delta > 0`, and if the content is cached within `cache_delta` hours, the API doesn't call Notion API and returns the cached content instead.
-
-- If `cache_delta = 0`, the API will retrieve the requested content. However, when called by `retrieve_all_content`, the API will only be triggered if the last updated time is outdated. This ensures minimal API usage. 
-
-Stay tuned for more updates! 💼
+## Enhanced Caching Strategy 💡
+- **Cache Delta Explained:** Set `cache_delta` to manage how often the API calls the Notion API. A positive value uses cached content within the specified hours, reducing API calls. A zero value always fetches fresh content but minimizes API usage when used with `retrieve_all_content`.
