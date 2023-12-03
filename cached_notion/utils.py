@@ -7,6 +7,18 @@ from notion_client import Client
 from cached_notion.cached_client import CachedClient
 
 
+def normalize_url(url: str) -> str:
+    url = url.strip()
+    parsed_url = urlparse(url)
+    query_parameters = parse_qs(parsed_url.query)
+
+    if "p" in query_parameters:
+        page_id = query_parameters["p"][0]
+        new_url = f"{parsed_url.scheme}://{parsed_url.netloc}/{page_id}"
+        return new_url
+    return url
+
+
 def get_id_with_object_type(url: str) -> Tuple[str, str]:
     """Return the ID of a Notion URL."""
 

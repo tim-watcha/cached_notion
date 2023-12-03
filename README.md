@@ -10,28 +10,48 @@ Effortlessly replace `NotionClient` with `CachedClient` for an optimized experie
 ```python
 from cached_notion.cached_client import CachedClient
 
-# Initialize CachedClient
+# Initialize CachedClient with your Notion token and desired cache settings
 client = CachedClient(auth=os.environ["NOTION_TOKEN"], cache_delta=24)
+url = "https://www.notion.so/xxx/xxx"
+normalized_url = normalize_url(url)
+nid, object_type = get_id_with_object_type(normalized_url)
 
-# Use CachedClient to interact with Notion
-page = client.pages.retrieve("https://www.notion.so/xxx/xxx")
-database = client.databases.retrieve("https://www.notion.so/xxx/xxx")
-block = client.blocks.retrieve("https://www.notion.so/xxx/xxx")
+# Use CachedClient to interact with Notion by providing the Notion ID
+page = client.pages.retrieve(nid)
+database = client.databases.retrieve(nid)
+block = client.blocks.retrieve(nid)
 ```
 
 ## Utility Functions 🛠️
 Maximize your productivity with these handy functions:
 ```python
-from cached_notion.utils import retrieve_all_content
+from cached_notion.utils import normalize_url, get_id_with_object_type, retrieve_object
 
-# Retrieve and print all content from a page or database
-page = retrieve_all_content(client, notion_id, "page")  # Options: "page", "database", "block", "unknown"
-print(page)
-print(page.get("children", []))
+# Normalize the URL and extract the Notion ID and object type
+url = "https://www.notion.so/xxx/xxx"
+normalized_url = normalize_url(url)
+nid, object_type = get_id_with_object_type(normalized_url)
 
-database = retrieve_all_content(client, notion_id, "database")
-print(database)
-print(database.get("entries", []))  # Note: This is not an official structure
+# Use the retrieve_object utility function to get the object from Notion
+obj = retrieve_object(client, nid, object_type)
+
+# Now you can work with the retrieved object
+print(obj)
+```
+
+```python
+from cached_notion.utils import normalize_url, get_id_with_object_type, retrieve_all_content
+
+# Normalize the URL and extract the Notion ID and object type
+url = "https://www.notion.so/xxx/xxx"
+normalized_url = normalize_url(url)
+nid, object_type = get_id_with_object_type(normalized_url)
+
+# Use the retrieve_all_content function to get the full content from Notion
+full_content = retrieve_all_content(client, nid, object_type)
+
+# Now you can work with the full content retrieved from Notion
+print(full_content)
 ```
 
 ## Enhanced Caching Strategy 💡
