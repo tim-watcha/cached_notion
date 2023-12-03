@@ -20,10 +20,10 @@ def cached_endpoint(retrieve_func):
     @wraps(retrieve_func)
     def wrapper(self, id: str, cached: Optional[Dict[Any, Any]] = None, **kwargs: Any) -> SyncAsync[Any]:
 
-        self.parent.logger.pretty(id=id, cached=cached, kwargs=kwargs)
-        self.parent.logger.pretty(cached=self.parent.cache.is_recently_cached(id, self.parent.cache_delta))
-        self.parent.logger.pretty(outdated=self.parent.cache.is_outdated(id, cached))
-        self.parent.logger.pretty(self.parent.cache.get(id))
+        self.parent.logger.debug(f"ID: {id}, Cached: {cached}, Kwargs: {kwargs}")
+        self.parent.logger.debug(f"Cached: {self.parent.cache.is_recently_cached(id, self.parent.cache_delta)}")
+        self.parent.logger.debug(f"Outdated: {self.parent.cache.is_outdated(id, cached)}")
+        self.parent.logger.debug(self.parent.cache.get(id))
         if (self.parent.cache.is_recently_cached(id, self.parent.cache_delta) \
                 or not self.parent.cache.is_outdated(id, cached)) and cached is not None:
             self.parent.logger.info(f"Cache hit! Retrieving {id}")
@@ -85,7 +85,7 @@ class CachedDatabasesEndpoint(DatabasesEndpoint, CachedEndpoint):
             self.parent.logger.error(e)
             self.parent.logger.error(database_id, kwargs)
             return []
-        self.parent.logger.pretty(resp)
+        self.parent.logger.debug(resp)
 
         # If the database is not cached, don't cache the entries
         # TODO: Add a flag to caching parent first so that we can cache the entries
@@ -125,7 +125,7 @@ class CachedBlocksChildrenEndpoint(BlocksChildrenEndpoint, CachedEndpoint):
             self.parent.logger.error(e)
             self.parent.logger.error(block_id, kwargs)
             return []
-        self.parent.logger.pretty(resp)
+        self.parent.logger.debug(resp)
 
         # If the parent block is not cached, don't cache the children
         # TODO: Add a flag to caching parent first so that we can cache the children

@@ -83,9 +83,7 @@ def retrieve_all_content(
         object_type: str = "unknown",
         given_block: Optional[Dict] = None):
     notion_obj = retrieve_object(client, notion_id, object_type, given_block)
-    client.logger.pretty(notion_id=notion_id, object_type=object_type, page=notion_obj)
-    if object_type == "page":
-        client.logger.pretty("Page retrieving", notion_id=notion_id, object_type=object_type, page=notion_obj)
+    client.logger.debug(f"Retrieved object: {notion_id} {object_type}")
     if notion_obj.get("has_children", False) or notion_obj.get("object", "") == "page":
         notion_obj["children"] = client.blocks.children.list_all(notion_id)
         for child in notion_obj["children"]:
