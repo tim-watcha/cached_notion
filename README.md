@@ -5,6 +5,42 @@
 - **Critical Caching Issue Resolved:** We've tackled a significant caching problem to ensure more reliable and faster access to your Notion data.
 - Stay tuned for ongoing updates and improvements! 💼
 
+## Installation 📦
+
+**CachedNotion** is currently available on TestPyPI. You can install it using either pip or Poetry.
+
+### Using pip
+
+To install `CachedNotion` from TestPyPI using pip, run the following command:
+
+```bash
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple cached-notion
+```
+
+This command tells pip to look for the package in TestPyPI but also checks the official PyPI for any dependencies that are not available in TestPyPI.
+
+### Using Poetry
+
+For those using Poetry, you can add `CachedNotion` to your project from TestPyPI as follows:
+
+1. Add TestPyPI as a secondary repository to your `pyproject.toml`:
+
+   ```toml
+   [[tool.poetry.source]]
+   name = "testpypi"
+   url = "https://test.pypi.org/simple/"
+   secondary = true
+   ```
+
+2. Add `cached-notion` to your project dependencies:
+
+   ```bash
+   poetry add cached-notion --source testpypi
+   ```
+
+Poetry will handle the resolution of dependencies from both TestPyPI and the official PyPI repository.
+
+
 ## Basic Usage 📖
 Effortlessly replace `NotionClient` with `CachedClient` for an optimized experience:
 ```python
