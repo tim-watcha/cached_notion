@@ -108,3 +108,22 @@ def retrieve_all_content(
             content = retrieve_all_content(client, entry["id"], "page")
             entry.update(content)
     return notion_obj
+
+
+def retrieve_page(
+        client: Union[Client, CachedClient],
+        notion_id: str,
+        object_type: str = "unknown",
+        given_block: Optional[Dict] = None):
+    notion_obj = retrieve_object(client, notion_id, object_type, given_block)
+    client.logger.debug(f"Retrieved object: {notion_id} {object_type}")
+    if notion_obj.get("has_children", False) or notion_obj.get("object", "") == "page":
+        notion_obj["children"] = client.blocks.children.list_all(notion_id)
+        for child in notion_obj["children"]:
+            if child['type'] != 'child_page':
+                content = retrieve_page(client, child["id"], child["type"], child)
+                child.update(content)
+    if notion_obj["object"] == "database" or notion_obj["object"] == "block" and notion_obj["type"] == "child_database":
+        entries = client.databases.query_all(notion_id)
+        notion_obj["entries"] = entries
+    return notion_obj

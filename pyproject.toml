@@ -11,6 +11,7 @@ python = "^3.9.1"
 notion-client = "^2.0.0"
 sqlitedict = "^2.1.0"
 coloredlogs = "^15.0.1"
+tqdm = "^4.66.1"
 
 
 [tool.poetry.group.dev.dependencies]
