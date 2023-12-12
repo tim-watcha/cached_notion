@@ -40,7 +40,46 @@ For those using Poetry, you can add `CachedNotion` to your project from TestPyPI
 
 Poetry will handle the resolution of dependencies from both TestPyPI and the official PyPI repository.
 
+---
 
+## New Feature: Notion to Markdown Conversion 📝
+
+**CachedNotion** now offers an innovative feature to convert Notion pages into Markdown format. This is invaluable for users wanting to document, backup, or share their Notion content in a standardized format.
+
+### Function Overview
+
+- `url_to_md`: Converts a Notion URL into a Markdown string. It handles nested content up to a specified depth, making it perfect for diverse documentation needs.
+- `id_to_md`: A complementary function to `url_to_md`, handling individual IDs and managing content depth.
+
+### Understanding Parameters
+
+- `max_depth`: This parameter in `url_to_md` specifies the recursive depth for crawling through the Notion content. A value of `-1` indicates no limit, ensuring a comprehensive conversion that includes all nested elements. Adjust this parameter to control how deep the function traverses through nested pages or blocks.
+- `subs`: Short for "sub-items," this parameter represents the remaining sub-items that are yet to be processed for further depths. It's crucial for managing and tracking the conversion process across nested levels of content.
+
+### Using `url_to_md`
+
+Quickly convert any Notion page into Markdown:
+```python
+from cached_notion.utils import url_to_md
+
+# Initialize CachedClient
+client = CachedClient(auth=os.environ["NOTION_TOKEN"], cache_delta=24)
+
+# Convert a Notion URL to Markdown, specifying the depth of content to include
+notion_url = "https://www.notion.so/xxx/xxx"
+markdown_string, remaining_subs = url_to_md(client, notion_url, max_depth=-1)
+
+# Markdown string is now ready, along with any remaining sub-items for further processing
+print(markdown_string)
+```
+
+This function is especially useful for thorough documentation, platform exports, or content backups.
+
+### Using `id_to_md`
+
+`id_to_md` can also be used independently for tailored Markdown generation processes, providing flexibility and control over the depth and content of the conversion.
+
+---
 ## Basic Usage 📖
 Effortlessly replace `NotionClient` with `CachedClient` for an optimized experience:
 ```python
