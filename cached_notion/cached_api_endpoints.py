@@ -25,7 +25,7 @@ def cached_endpoint(retrieve_func):
         self.parent.logger.debug(f"Outdated: {self.parent.cache.is_outdated(id, cached)}")
         self.parent.logger.debug(self.parent.cache.get(id))
         if (self.parent.cache.is_recently_cached(id, self.parent.cache_delta) \
-                or not self.parent.cache.is_outdated(id, cached)) and cached is not None:
+            or not self.parent.cache.is_outdated(id, cached)) and cached is not None:
             self.parent.logger.info(f"Cache hit! Retrieving {id}")
             return self.parent.cache.get(id)
 

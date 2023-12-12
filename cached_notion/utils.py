@@ -1,10 +1,18 @@
+import logging
+import os
+from collections import defaultdict
+from pprint import pprint
+from typing import List
 from typing import Tuple, Union, Optional, Dict
 from urllib.parse import urlparse, parse_qs
 from uuid import UUID
 
+import tqdm
 from notion_client import Client
 
 from cached_notion.cached_client import CachedClient
+from cached_notion.models.property import PropertiesModel
+from cached_notion.pretty_logger import setup_logger
 
 
 def normalize_url(url: str) -> str:
@@ -127,19 +135,6 @@ def retrieve_page(
         entries = client.databases.query_all(notion_id)
         notion_obj["entries"] = entries
     return notion_obj
-
-
-import logging
-import os
-from collections import defaultdict
-from pprint import pprint
-from typing import Dict, List, Tuple
-
-import tqdm
-
-from cached_notion.cached_client import CachedClient
-from cached_notion.models.property import PropertiesModel
-from cached_notion.pretty_logger import setup_logger
 
 
 def _get_page_info(d):
@@ -396,7 +391,6 @@ def _main():
         log_level=logging.ERROR,
         cache_delta=24,
     )
-
 
     res, subs = url_to_md(notion_client, "https://www.notion.so/watcha/XXX", 1)
     print(res)
