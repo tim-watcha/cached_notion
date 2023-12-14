@@ -11,34 +11,21 @@
 
 ### Using pip
 
-To install `CachedNotion` from TestPyPI using pip, run the following command:
+To install `CachedNotion` using pip, run the following command:
 
 ```bash
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple cached-notion
+pip install cached-notion
 ```
 
 This command tells pip to look for the package in TestPyPI but also checks the official PyPI for any dependencies that are not available in TestPyPI.
 
 ### Using Poetry
 
-For those using Poetry, you can add `CachedNotion` to your project from TestPyPI as follows:
+For those using Poetry, you can add `CachedNotion` to your project as follows:
 
-1. Add TestPyPI as a secondary repository to your `pyproject.toml`:
-
-   ```toml
-   [[tool.poetry.source]]
-   name = "testpypi"
-   url = "https://test.pypi.org/simple/"
-   secondary = true
-   ```
-
-2. Add `cached-notion` to your project dependencies:
-
-   ```bash
-   poetry add cached-notion --source testpypi
-   ```
-
-Poetry will handle the resolution of dependencies from both TestPyPI and the official PyPI repository.
+```bash
+poetry add cached-notion
+```
 
 ---
 
