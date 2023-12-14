@@ -6,6 +6,7 @@ from notion_client.api_endpoints import BlocksEndpoint, Endpoint, PagesEndpoint,
     BlocksChildrenEndpoint
 from notion_client.helpers import collect_paginated_api
 from notion_client.typing import SyncAsync
+from tenacity import retry, wait_exponential, stop_after_attempt
 
 if TYPE_CHECKING:
     from .cached_client import CachedClient
@@ -18,6 +19,7 @@ class CachedEndpoint(Endpoint):
 
 def cached_endpoint(retrieve_func):
     @wraps(retrieve_func)
+    @retry(wait=wait_exponential(multiplier=1, min=1, max=128), stop=stop_after_attempt(7))
     def wrapper(self, id: str, cached: Optional[Dict[Any, Any]] = None, **kwargs: Any) -> SyncAsync[Any]:
 
         self.parent.logger.debug(f"ID: {id}, Cached: {cached}, Kwargs: {kwargs}")
