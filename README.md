@@ -17,8 +17,6 @@ To install `CachedNotion` using pip, run the following command:
 pip install cached-notion
 ```
 
-This command tells pip to look for the package in TestPyPI but also checks the official PyPI for any dependencies that are not available in TestPyPI.
-
 ### Using Poetry
 
 For those using Poetry, you can add `CachedNotion` to your project as follows:
