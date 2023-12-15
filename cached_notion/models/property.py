@@ -229,6 +229,24 @@ class LastEditedTimeProperty(BaseModel):
         return str(self.last_edited_time)
 
 
+class StatusOption(BaseModel):
+    id: str
+    name: str
+    color: str
+
+    def to_md(self) -> str:
+        """Convert a single StatusOption to Markdown format."""
+        return self.name
+
+
+class StatusModel(BaseModel):
+    status: StatusOption
+
+    def to_md(self) -> str:
+        """Convert the StatusModel to Markdown format."""
+        return self.status.to_md()
+
+
 class Property(BaseModel):
     id: str
     type: str
@@ -244,6 +262,7 @@ class Property(BaseModel):
     number: Optional[NumberProperty] = None
     created_time: Optional[CreatedTimeProperty] = None
     last_edited_time: Optional[LastEditedTimeProperty] = None
+    status: Optional[StatusModel] = None
 
     @classmethod
     def parse_property(cls, property_id: str, property_data: dict) -> 'Property':
@@ -260,6 +279,7 @@ class Property(BaseModel):
             'number': (NumberProperty, 'number'),
             'created_time': (CreatedTimeProperty, 'created_time'),
             'last_edited_time': (LastEditedTimeProperty, 'last_edited_time'),
+            'status': (StatusModel, 'status'),
         }
 
         type_key = property_data['type']
