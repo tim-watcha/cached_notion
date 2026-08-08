@@ -78,6 +78,7 @@ class MultiSelectOption(BaseModel):
 
 
 class MultiSelectProperty(BaseModel):
+    type: Literal['multi_select']
     multi_select: Union[Dict[Literal['options'], List[MultiSelectOption]], List[MultiSelectOption]]
 
     def to_md(self) -> str:
@@ -152,6 +153,7 @@ class TitleProperty(BaseModel):
 
 
 class DateProperty(BaseModel):
+    type: Literal['date']
     start: Optional[datetime] = None
     end: Optional[datetime] = None
     time_zone: Optional[str] = None
@@ -169,6 +171,7 @@ class DateProperty(BaseModel):
 
 
 class URLProperty(BaseModel):
+    type: Literal['url']
     url: Optional[Union[str, dict]] = None
 
     def to_md(self) -> str:
@@ -249,7 +252,8 @@ class StatusModel(BaseModel):
 
 class Property(BaseModel):
     id: str
-    type: str
+    type: Literal['rich_text', 'date', 'url', 'created_by', 'multi_select', 'select', 'title', 'people', 'checkbox',
+                  'number', 'created_time', 'last_edited_time', 'status']
     rich_text: Optional[RichTextModel] = None
     date: Optional[DateProperty] = None
     url: Optional[URLProperty] = None
