@@ -295,7 +295,10 @@ class Property(BaseModel):
 
         try:
             if model_class:
-                property_data[data_key] = model_class(**{data_key: property_data.get(data_key, [])})
+                # A missing or null payload key falls back to the model's own defaults —
+                # an explicit `[]` is not a valid payload for select/date/status/url.
+                payload = property_data.get(data_key)
+                property_data[data_key] = model_class(**{data_key: payload}) if payload is not None else model_class()
             else:
                 raise ValueError(f"Unknown property type: {type_key}")
         except Exception as e:

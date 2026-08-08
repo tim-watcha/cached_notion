@@ -841,6 +841,29 @@ def test_bug_b7_explicit_null_select_payload_parses_and_renders_empty_string():
 
 
 # --------------------------------------------------------------------------- #
+# B8: parse_property's ``[]`` fallback defeats the model defaults when the
+# typed payload key is missing entirely — ``[]`` is not a valid payload for
+# select/date/status/url, so those four crash instead of rendering ''.
+# --------------------------------------------------------------------------- #
+
+
+@pytest.mark.parametrize(
+    "key, property_type, expected_line",
+    [
+        ("Stage", "select", "\tStage: \n"),
+        ("Due", "date", "\tDue: \n"),
+        ("Status", "status", "\tStatus: \n"),
+        ("Link", "url", "\tLink: \n"),
+    ],
+    ids=["select", "date", "status", "url"],
+)
+def test_bug_b8_missing_payload_key_parses_and_renders_empty(key, property_type, expected_line):
+    """A wrapper without its typed payload key must fall back to the model default."""
+    parsed = PropertiesModel.parse_properties({key: {"id": "x", "type": property_type}})
+    assert parsed.get_property_md() == expected_line
+
+
+# --------------------------------------------------------------------------- #
 # Database schema payloads: parse_properties also receives *schemas*, not only
 # page values (utils.py ``_traverse`` routes ``object == "database"`` through
 # ``_get_page`` -> ``_get_page_info`` -> ``parse_properties``, and
