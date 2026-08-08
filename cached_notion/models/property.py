@@ -390,38 +390,3 @@ class PropertiesModel(BaseModel):
         res += "\n"
 
         return res
-
-
-#
-# block = {'object': 'page', 'id': '8a4ca2ea-948d-4f52-af90-ee0f25116d9c', 'created_time': '2023-11-30T00:34:00.000Z',
-#          'last_edited_time': '2023-11-30T04:24:00.000Z',
-#          'created_by': {'object': 'user', 'id': 'cf982f9c-6d3f-4cfa-b3eb-fc6023f7182a'},
-#          'last_edited_by': {'object': 'user', 'id': '32a7ad4c-3f3e-4a27-82d6-4ed21fdaf941'}, 'cover': None,
-#          'icon': {'type': 'emoji', 'emoji': '🎟️'},
-#          'parent': {'type': 'database_id', 'database_id': 'b6b049bb-cc9f-44ea-9945-ef2116b13d9d'}, 'archived': False,
-#          'properties': {'Property': {'id': '%3AFM%3B', 'type': 'rich_text', 'rich_text': []},
-#                         'Coupon expire_at': {'id': '%3BTiC', 'type': 'date', 'date': None},
-#                         '사개팀 참고 Link': {'id': 'Gku%7C', 'type': 'url', 'url': None},
-#                         'created by': {'id': 'JMRf', 'type': 'created_by',
-#                                        'created_by': {'object': 'user', 'id': 'cf982f9c-6d3f-4cfa-b3eb-fc6023f7182a'}},
-#                         'Duration': {'id': 'P%3C%3BE', 'type': 'multi_select', 'multi_select': [
-#                             {'id': 'b2871370-3f74-48c5-b245-928ff63bceef', 'name': '12개월', 'color': 'red'}]},
-#                         '\x08Available Service': {'id': 'R%60hd', 'type': 'multi_select', 'multi_select': []},
-#                         '마팀 참고 Link': {'id': 'ZBO%5C', 'type': 'url', 'url': None},
-#                         'Status': {'id': '%5Dcvb', 'type': 'select',
-#                                    'select': {'id': '73da80d2-1d16-4cd0-ae13-6bdfb8634e08', 'name': 'upcoming',
-#                                               'color': 'red'}},
-#                         '그외 스펙 문서': {'id': '%5EcE%60', 'type': 'url', 'url': None},
-#                         'Promotion Date': {'id': 'gfrW', 'type': 'date',
-#                                            'date': {'start': '2023-12-11', 'end': '2023-12-15', 'time_zone': None}},
-#                         'CouponType': {'id': 'h%7BTs', 'type': 'multi_select', 'multi_select': [
-#                             {'id': '0f4f6fab-6c94-4c73-b8ba-84c80622914c', 'name': 'Regular::Tall', 'color': 'blue'}]},
-#                         'Sales Page': {'id': 's~cq', 'type': 'url', 'url': None},
-#                         'Name': {'id': 'title', 'type': 'title', 'title': [
-#                             {'type': 'text', 'text': {'content': '위메프 12월 할인 프로모션', 'link': None},
-#                              'annotations': {'bold': False, 'italic': False, 'strikethrough': False, 'underline': False,
-#                                              'code': False, 'color': 'default'}, 'plain_text': '위메프 12월 할인 프로모션',
-#                              'href': None}]}}, 'url': 'https://www.notion.so/12-8a4ca2ea948d4f52af90ee0f25116d9c',
-#          'public_url': None}
-#
-# pprint(loads(PropertiesModel.parse_properties(block['properties']).model_dump_json()))

@@ -40,9 +40,9 @@ from cached_notion.models.property import (
 # Synthetic payload builders (Notion API shapes)
 # --------------------------------------------------------------------------- #
 
-USER_ID = "cf982f9c-6d3f-4cfa-b3eb-fc6023f7182a"
-OTHER_USER_ID = "32a7ad4c-3f3e-4a27-82d6-4ed21fdaf941"
-PAGE_ID = "8a4ca2ea-948d-4f52-af90-ee0f25116d9c"
+USER_ID = "00000000-0000-4000-8000-000000000001"
+OTHER_USER_ID = "00000000-0000-4000-8000-000000000002"
+PAGE_ID = "00000000-0000-4000-8000-00000000000a"
 
 DEFAULT_ANNOTATIONS = {
     "bold": False,
