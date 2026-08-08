@@ -16,3 +16,20 @@ __pycache__/
 *.swp
 *.swo
 
+# Ignore build output and virtualenvs
+/dist/
+.venv/
+
+# Ignore OS artifacts
+.DS_Store
+
+# Ignore the local Notion cache — it holds real workspace content
+*.sqlite
+
+# Ignore local scrapes of a real Notion workspace — they may contain internal data
+/cr.json
+/manual.json
+/test.json
+/run.py
+/examine_json.*
+
