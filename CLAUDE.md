@@ -16,7 +16,3 @@ Provide a caching client that performs the job of **repeatedly reading large Not
 
 - A cache entry is a document that **grows by appending** `children`/`entries`/`*_completed`/`cached_time` onto the API response. When a response's `last_edited_time` equals the cached one, the entry is not overwritten — deliberate behavior to preserve the accumulated tree.
 - Passing child objects obtained from a parent listing as the `cached=` hint during traversal is the core of subtree pruning. A retrieve without a hint always calls the API.
-
-## Data caution
-
-- The untracked files at the repo root (`cr.json`, `manual.json`, `test.json`, `*.sqlite`, `run.py`, `examine_json.*`) are dumps scraped from a real workspace and may contain internal company data. **Never commit them, never copy them into test fixtures** — fixtures use synthetic data only.

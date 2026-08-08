@@ -26,3 +26,10 @@ __pycache__/
 # Ignore the local Notion cache — it holds real workspace content
 *.sqlite
 
+# Ignore local scrapes of a real Notion workspace — they may contain internal data
+/cr.json
+/manual.json
+/test.json
+/run.py
+/examine_json.*
+
