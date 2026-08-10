@@ -7,22 +7,26 @@
 
 ## Installation 📦
 
-**CachedNotion** is currently available on TestPyPI. You can install it using either pip or Poetry.
-
-### Using pip
-
-To install `CachedNotion` using pip, run the following command:
+**CachedNotion** is available on PyPI. Install it with whichever tool your project uses:
 
 ```bash
+uv add cached-notion
+# or
 pip install cached-notion
+# or
+poetry add cached-notion
 ```
 
-### Using Poetry
+---
 
-For those using Poetry, you can add `CachedNotion` to your project as follows:
+## Development 🛠️
+
+This project uses [uv](https://docs.astral.sh/uv/).
 
 ```bash
-poetry add cached-notion
+uv sync          # create the virtualenv and install dependencies (including dev)
+uv run pytest    # run the test suite
+uv build         # build the sdist and wheel
 ```
 
 ---
