@@ -7,7 +7,7 @@ __pycache__/
 *.pyd
 *~
 
-# Ignore Poetry artifacts
+# Ignore Poetry artifacts left over from before the uv migration
 /poetry.lock
 
 # Ignore IDE artifacts

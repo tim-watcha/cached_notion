@@ -1,26 +1,35 @@
-[tool.poetry]
+[project]
 name = "cached-notion"
 version = "0.1.6"
 description = ""
-authors = ["tim-watcha <tim@watcha.com>"]
 readme = "README.md"
-packages = [{include = "cached_notion"}]
+requires-python = ">=3.9.1,<4.0"
+authors = [{ name = "tim-watcha", email = "tim@watcha.com" }]
+dependencies = [
+    "notion-client>=2.0.0,<3.0.0",
+    "sqlitedict>=2.1.0,<3.0.0",
+    "coloredlogs>=15.0.1,<16.0.0",
+    "tqdm>=4.66.1,<5.0.0",
+    "pydantic>=2.5.2,<3.0.0",
+    "tenacity>=8.2.3,<9.0.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.9.1"
-notion-client = "^2.0.0"
-sqlitedict = "^2.1.0"
-coloredlogs = "^15.0.1"
-tqdm = "^4.66.1"
-pydantic = "^2.5.2"
-tenacity = "^8.2.3"
-
-
-[tool.poetry.group.dev.dependencies]
-black = "^23.11.0"
-pre-commit = "^3.6.0"
-pytest = "^8.0"
+[dependency-groups]
+dev = [
+    "black>=23.11.0,<24.0.0",
+    "pre-commit>=3.6.0,<4.0.0",
+    "pytest>=8.0,<9.0",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["cached_notion"]
+
+# Ship only the package and its tests. The repo root can hold local scrapes of a
+# real Notion workspace, so the sdist contents are listed explicitly rather than
+# collected by exclusion.
+[tool.hatch.build.targets.sdist]
+include = ["cached_notion", "tests"]
